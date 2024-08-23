@@ -82,24 +82,41 @@ def generateSalary(jobId, state):
     Returns:
     float: The calculated salary.
     """
+    # Corrected mapping of departments to their full forms
+    department_mapping = {
+        "SA": "SALES",
+        "IT": "IT",
+        "HR": "HR"
+    }
+
     base_salaries = {
         "SALES": 60000,
         "IT": 80000,
         "HR": 70000
     }
 
+    # Extracting the department and checking if it's a manager
     department = jobId.split('_')[0]
     is_manager = jobId.endswith('MNG')
 
-    salary = base_salaries.get(department.upper(), 0)
+    # Mapping the department abbreviation to the full department name
+    department_full = department_mapping.get(department, "")
+    salary = base_salaries.get(department_full, 0)
+
+    # Debugging output to trace the problem
+    print(f"Job ID: {jobId}, Department: {department_full}, Is Manager: {is_manager}")
+    print(f"Base Salary: {salary}")
 
     if is_manager:
         salary *= 1.05
+        print(f"Salary after Manager Bonus: {salary}")
 
     if state.upper() in ["NY", "CA", "OR", "WA", "VT"]:
         salary *= 1.015
+        print(f"Salary after State Bonus: {salary}")
 
-    return salary
+    return round(salary, 2)
+
 
 
 def processEachEmp(empList):
