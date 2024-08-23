@@ -21,26 +21,36 @@ def startProcess(tup):
     totalEmps = 0
 
     for file in tup:
-        # Get the JSON content
-        empList = parseFile.getJSONContent(file)
+        if "_formatted" not in file:  # Avoid processing already formatted files
+            # Get the JSON content
+            empList = parseFile.getJSONContent(file)
 
-        # Process each employee
-        processedEmpList = parseFile.processEachEmp(empList)
+            # Process each employee
+            processedEmpList = parseFile.processEachEmp(empList)
 
-        # Save the processed employees to a new formatted JSON file
-        parseFile.generateFormattedFile(processedEmpList, file)
+            # Save the processed employees to a new formatted JSON file
+            parseFile.generateFormattedFile(processedEmpList, file)
 
-        # Update the total number of employees processed
-        totalEmps += len(processedEmpList)
+            # Update the total number of employees processed
+            totalEmps += len(processedEmpList)
 
     # Print the summary
     printOutput(numFiles, totalEmps)
 
-file_path = r"/Users/vivekparmar/Desktop/vivekparmar/core-python-project-advanced-full-sprint-vivek-parmar/testFiles"  # Update this path if necessary
-valid_files = usrInput.checkPath(file_path, [])
+def main():
+    # Prompt the user for input
+    user_input = usrInput.getUsrInput("Please enter a value")
+    print(f"You entered: {user_input}")
 
-# Handle errors
-errorHandle(valid_files)
+    # Rest of your logic for handling files, if any
+    file_path = r"/Users/vivekparmar/Desktop/vivekparmar/core-python-project-advanced-full-sprint-vivek-parmar/testFiles"  # Update this with your actual path
+    valid_files = usrInput.checkPath(file_path, [])
 
-# Start processing the files
-startProcess(valid_files)
+    # Handle errors
+    errorHandle(valid_files)
+
+    # Start processing the files
+    startProcess(valid_files)
+
+# Run the main function
+main()

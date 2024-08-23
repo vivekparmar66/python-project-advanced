@@ -13,3 +13,14 @@ def checkPath(filePath, dataFiles):
         dataFiles.append(filePath)
     return tuple(dataFiles)
 
+def getUsrInput(msg):
+    """
+    Prompts the user with a given message and returns their input.
+
+    Arguments:
+    msg -- str: The message to prompt the user.
+
+    Returns:
+    str: The user’s input.
+    """
+    return input(f"{msg}: ")
