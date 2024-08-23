@@ -26,7 +26,6 @@ def getJSONContent(file, handle_errors=True):
         return []
 
 
-
 def generateEmail(firstname, lastname):
     """
     Generates a company email address based on the first name and last name.
@@ -36,8 +35,11 @@ def generateEmail(firstname, lastname):
     lastname -- str: The employee's last name.
 
     Returns:
-    str: The generated email address.
+    str: The generated email address, or 'invalid@comp.com' if inputs are invalid.
     """
+    if not firstname or not lastname:
+        return "invalid@comp.com"  
+
     email = f"{firstname[0].lower()}{lastname.lower()}@comp.com"
     return email
 
