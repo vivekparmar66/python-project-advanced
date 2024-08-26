@@ -38,7 +38,7 @@ def generateEmail(firstname, lastname):
     str: The generated email address, or 'invalid@comp.com' if inputs are invalid.
     """
     if not firstname or not lastname:
-        return "invalid@comp.com"  
+        return "invalid@comp.com"
 
     email = f"{firstname[0].lower()}{lastname.lower()}@comp.com"
     return email
@@ -137,12 +137,12 @@ def processEachEmp(empList):
         # Validate phone number
         phone = validatePhoneNumber(emp.get("Phone Number", ""))
         if phone == 1:
-            continue  # Skip if phone number is invalid
+            emp["Phone Number"] = "Invalid phone number"  # Mark as invalid
 
         # Validate zip code
         zip_code = validateZips(emp.get("Zip Code", ""))
         if zip_code == 1:
-            continue  # Skip if zip code is invalid
+            emp["Zip Code"] = "Invalid zip code"  # Mark as invalid
 
         # Format names and addresses
         emp["First Name"] = emp.get("First Name", "").strip().title()
@@ -158,7 +158,7 @@ def processEachEmp(empList):
         # Generate salary
         emp["Salary"] = generateSalary(emp["Job ID"], emp["State"])
 
-        # Remove last entry if it exists (assuming it's not needed as per your description)
+        # Remove last entry if it exists
         if "I declare that the above information is accurate." in emp:
             del emp["I declare that the above information is accurate."]
 
